@@ -18,6 +18,10 @@
 </p>
 
 <p align="center">
+  <a href="https://abd3lraouf.dev/work/vocaldrop/"><strong>Product page → abd3lraouf.dev/work/vocaldrop</strong></a>
+</p>
+
+<p align="center">
   <a href="#-installation">Install</a> ·
   <a href="#-features">Features</a> ·
   <a href="#-the-app">The app</a> ·

@@ -9,12 +9,12 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/App-Builders-Gang/vocaldrop/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/App-Builders-Gang/vocaldrop?display_name=tag&label=download&color=b98cff" /></a>
-  <a href="https://github.com/App-Builders-Gang/vocaldrop/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/App-Builders-Gang/vocaldrop/total?label=downloads&color=blue" /></a>
+  <a href="https://github.com/abd3lraouf-studios/vocaldrop/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/abd3lraouf-studios/vocaldrop?display_name=tag&label=download&color=b98cff" /></a>
+  <a href="https://github.com/abd3lraouf-studios/vocaldrop/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/abd3lraouf-studios/vocaldrop/total?label=downloads&color=blue" /></a>
   <a href="#"><img alt="Platform" src="https://img.shields.io/badge/platform-macOS%20%C2%B7%20Windows%20%C2%B7%20Linux-000000" /></a>
   <a href="#"><img alt="Price" src="https://img.shields.io/badge/price-free-success" /></a>
   <a href="#"><img alt="Privacy" src="https://img.shields.io/badge/privacy-100%25%20offline-blueviolet" /></a>
-  <a href="https://github.com/App-Builders-Gang/vocaldrop/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/App-Builders-Gang/vocaldrop?style=social" /></a>
+  <a href="https://github.com/abd3lraouf-studios/vocaldrop/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/abd3lraouf-studios/vocaldrop?style=social" /></a>
 </p>
 
 <p align="center">
@@ -69,7 +69,7 @@ Looking for a **free UVR5 alternative**, a **private Moises alternative**, or an
 
 ## 📥 Installation
 
-Grab the build for your OS from the [**latest release**](https://github.com/App-Builders-Gang/vocaldrop/releases/latest). The first run downloads the AI engine and models (~2 GB, one-time) — after that VocalDrop is **fully offline**.
+Grab the build for your OS from the [**latest release**](https://github.com/abd3lraouf-studios/vocaldrop/releases/latest). The first run downloads the AI engine and models (~2 GB, one-time) — after that VocalDrop is **fully offline**.
 
 ### 🍎 macOS (Apple Silicon)
 1. Download **`VocalDrop-<version>-arm64.dmg`**, open it, and drag **VocalDrop** into **Applications**.
@@ -158,11 +158,11 @@ Same underlying RoFormer models, but VocalDrop is a **native, polished desktop a
 
 ## 🤝 Feedback
 
-VocalDrop is free to use and closed source. This repo hosts the downloads, screenshots, and this README — so **bug reports and feature requests are very welcome** in the [Issues](https://github.com/App-Builders-Gang/vocaldrop/issues).
+VocalDrop is free to use and closed source. This repo hosts the downloads, screenshots, and this README — so **bug reports and feature requests are very welcome** in the [Issues](https://github.com/abd3lraouf-studios/vocaldrop/issues).
 
 ## 📄 License & acknowledgements
 
-VocalDrop is **free to use** software (closed source) © 2026 App Builders Gang.
+VocalDrop is **free to use** software (closed source) © 2026 abd3lraouf Studios.
 
 It stands on the shoulders of giants:
 - The **RoFormer** separation models and their authors.

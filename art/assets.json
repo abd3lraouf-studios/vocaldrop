@@ -80,8 +80,8 @@
     "sections": [
       {
         "kind": "features",
-        "lift": "given away free.",
         "heading": "Built like a studio tool",
+        "lift": "given away free.",
         "items": [
           {
             "icon": "waveform",
@@ -107,8 +107,8 @@
       },
       {
         "kind": "steps",
-        "lift": "depending on the mix.",
         "heading": "Two passes,",
+        "lift": "depending on the mix.",
         "intro": "VocalDrop is built on the RoFormer separation models, run locally through audio-separator. Which one runs is the only choice the app asks you to make.",
         "steps": [
           {
@@ -131,8 +131,8 @@
       },
       {
         "kind": "table",
-        "lift": "the ones that upload your audio.",
         "heading": "Against the usual suspects",
+        "lift": "the ones that upload your audio.",
         "columns": [
           "Compared on",
           "VocalDrop",
@@ -200,8 +200,8 @@
       },
       {
         "kind": "prose",
-        "lift": "and the diagnostics that do.",
         "heading": "Your audio never leaves the machine —",
+        "lift": "and the diagnostics that do.",
         "body": "Most free vocal extractors are websites that upload your audio to someone else's server. VocalDrop runs the models locally on your own CPU or GPU, so the audio is never sent anywhere, and there is no track limit, watermark or subscription attached to the decision.\n\nWhat does leave the machine, stated plainly: anonymous crash and usage diagnostics — never file contents, never paths, never personal data — the one-time engine and model download on first launch, a URL if you paste one in for the app to fetch, and the update check if you leave it on. That is the complete list."
       },
       {

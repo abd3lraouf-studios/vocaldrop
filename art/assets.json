@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "product": {
+    "slug": "vocaldrop",
+    "name": "VocalDrop",
+    "category": "app",
+    "headline": {
+      "lead": "Free AI",
+      "lift": "vocal isolator",
+      "trail": "and remover"
+    },
+    "tagline": "studio-grade acapella, on your own hardware",
+    "summary": "Separates vocals from any track on your own CPU or GPU. Studio-grade results, and your audio never leaves the machine.",
+    "platform": "macOS · Windows · Linux",
+    "licence": {
+      "label": "Free",
+      "kind": "free",
+      "price": "Free"
+    },
+    "distribution": "GitHub releases",
+    "openSource": false,
+    "mono": null
+  },
+  "links": {
+    "repo": "https://github.com/abd3lraouf-studios/vocaldrop",
+    "website": "https://abd3lraouf.dev/work/vocaldrop/"
+  },
+  "press": {
+    "short": "VocalDrop is a free AI vocal isolator and remover for macOS, Windows and Linux that runs entirely on your own hardware.",
+    "long": "VocalDrop separates vocals from instrumentals at studio quality, running the model locally on your own CPU or GPU. No audio ever leaves the machine. It collects anonymous crash and usage diagnostics — never file contents, paths or personal data. Free, with no watermarks, no track limits and no subscription.",
+    "naming": "Written \"VocalDrop\" — one word, capital V and D. Never \"Vocal Drop\" or \"Vocaldrop\"."
+  },
+  "assets": [
+    {
+      "role": "icon-card",
+      "file": "vocaldrop-icon.png",
+      "label": "App icon, 256px",
+      "note": "PNG",
+      "width": 256,
+      "height": 256
+    },
+    {
+      "role": "icon-vector",
+      "file": "vocaldrop-icon.svg",
+      "label": "App icon, vector",
+      "note": "SVG",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "role": "icon-press",
+      "file": "vocaldrop-icon-512.png",
+      "label": "App icon, 512px",
+      "note": "PNG",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "role": "screenshot",
+      "file": "vocaldrop-shot.png",
+      "label": "Screenshot",
+      "note": "PNG",
+      "width": 1560,
+      "height": 1000
+    }
+  ]
+}

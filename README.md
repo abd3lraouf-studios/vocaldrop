@@ -164,6 +164,11 @@ Same underlying RoFormer models, but VocalDrop is a **native, polished desktop a
 
 VocalDrop is free to use and closed source. This repo hosts the downloads, screenshots, and this README — so **bug reports and feature requests are very welcome** in the [Issues](https://github.com/abd3lraouf-studios/vocaldrop/issues).
 
+## 📰 Press & marketing assets
+
+[`art/assets.json`](art/assets.json) is the canonical press kit — app icon (256/512 px + vector), a screenshot, and ready-to-quote press copy with naming rules.
+It is kept in sync with the product page at [abd3lraouf.dev/work/vocaldrop](https://abd3lraouf.dev/work/vocaldrop/).
+
 ## 📄 License & acknowledgements
 
 VocalDrop is **free to use** software (closed source) © 2026 abd3lraouf Studios.

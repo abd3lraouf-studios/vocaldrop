@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "product": {
     "slug": "vocaldrop",
     "name": "VocalDrop",
@@ -29,6 +29,134 @@
     "short": "VocalDrop is a free AI vocal isolator and remover for macOS, Windows and Linux that runs entirely on your own hardware.",
     "long": "VocalDrop separates vocals from instrumentals at studio quality, running the model locally on your own CPU or GPU. No audio ever leaves the machine. It collects anonymous crash and usage diagnostics — never file contents, paths or personal data. Free, with no watermarks, no track limits and no subscription.",
     "naming": "Written \"VocalDrop\" — one word, capital V and D. Never \"Vocal Drop\" or \"Vocaldrop\"."
+  },
+  "theme": {
+    "accent": "222 44% 34%"
+  },
+  "marketing": {
+    "sections": [
+      {
+        "kind": "features",
+        "heading": "Built like a studio tool",
+        "items": [
+          {
+            "icon": "waveform",
+            "title": "Fast and Max models",
+            "body": "The RoFormer model family UVR5 uses, offered at two qualities. Fast for a quick pass, Max when the mix is dense."
+          },
+          {
+            "icon": "stack",
+            "title": "Both stems, one pass",
+            "body": "The isolated vocal and the instrumental land together in the Results feed — separation is one job, not two runs."
+          },
+          {
+            "icon": "devices",
+            "title": "Video too",
+            "body": "Drop a music video or a movie clip; the audio is extracted, separated, and the stem you chose is re-muxed back in sync."
+          },
+          {
+            "icon": "terminal",
+            "title": "Fully scriptable",
+            "body": "Everything the app does works from the CLI, with --json output for pipelines. Right-click Quick Actions on macOS into the bargain."
+          }
+        ]
+      },
+      {
+        "kind": "table",
+        "heading": "Against the usual suspects",
+        "columns": [
+          "Compared on",
+          "VocalDrop",
+          "Online tools",
+          "UVR5",
+          "Moises",
+          "iZotope RX"
+        ],
+        "rows": [
+          [
+            "Files stay on your machine",
+            "yes",
+            "no — uploads",
+            "yes",
+            "no — cloud",
+            "yes"
+          ],
+          [
+            "Free",
+            "yes",
+            "limited tier",
+            "yes",
+            "paid",
+            "paid, dearly"
+          ],
+          [
+            "Native desktop app",
+            "yes",
+            "browser only",
+            "no — Python GUI",
+            "yes",
+            "yes"
+          ],
+          [
+            "No watermarks or quotas",
+            "yes",
+            "no",
+            "yes",
+            "no",
+            "yes"
+          ],
+          [
+            "Apple Silicon GPU (Metal)",
+            "yes",
+            "n/a",
+            "manual setup",
+            "yes",
+            "yes"
+          ],
+          [
+            "No account",
+            "yes",
+            "often required",
+            "yes",
+            "required",
+            "yes"
+          ]
+        ],
+        "highlight": 1
+      },
+      {
+        "kind": "terminal",
+        "command": "vocaldrop vocals song.mp3 --quality max",
+        "note": "Every option the app exposes, with --json for pipelines."
+      },
+      {
+        "kind": "prose",
+        "heading": "Your audio never leaves the machine",
+        "body": "Most free vocal extractors are websites that upload your audio to someone else's server. VocalDrop runs the model locally on your own CPU or GPU, so nothing is sent anywhere, and there is no track limit, watermark or subscription attached to the decision.\n\nIt collects anonymous crash and usage diagnostics — never file contents, never paths, never personal data — and that is the whole telemetry story."
+      },
+      {
+        "kind": "faq",
+        "heading": "Questions",
+        "items": [
+          {
+            "q": "What model does it use?",
+            "a": "The same RoFormer family UVR5 ships, as a native desktop app — no Python setup, no dependency roulette. Fast and Max presets pick the right configuration per job."
+          },
+          {
+            "q": "Is it really free?",
+            "a": "Yes. Free, with no watermarks, no track limits and no subscription."
+          },
+          {
+            "q": "What about my files?",
+            "a": "They are processed on your machine and never uploaded. The diagnostics the app sends are anonymous crash and usage counts — never file contents, paths or personal data."
+          },
+          {
+            "q": "Can I automate it?",
+            "a": "Yes — the CLI mirrors the whole app, with --json output for scripting into pipelines."
+          }
+        ]
+      }
+    ]
   },
   "assets": [
     {

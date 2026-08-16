@@ -3,7 +3,7 @@
     <img src="art/vocaldrop-icon.png" alt="VocalDrop" height="120">
 </p>
 
-<h1 align="center">VocalDrop</h1>
+<h1 align="center">VocalDrop — Free AI Vocal Isolator & Extractor</h1>
 
 <p align="center">
     <strong>Separates vocals from any track on your own CPU or GPU. Studio-grade results, and your audio never leaves the machine.</strong><br>

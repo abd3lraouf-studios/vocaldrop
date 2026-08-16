@@ -1,23 +1,12 @@
-<!-- BEGIN abd3lraouf-studios:hero -->
 <p align="center">
-    <img src="art/vocaldrop-icon.png" alt="VocalDrop" height="120">
+  <img src="assets/icon.png" width="120" height="120" alt="VocalDrop app icon" />
 </p>
 
 <h1 align="center">VocalDrop — Free AI Vocal Isolator & Extractor</h1>
 
 <p align="center">
-    <strong>Separates vocals from any track on your own CPU or GPU. Studio-grade results, and your audio never leaves the machine.</strong><br>
-    macOS (Apple Silicon) · Windows · Linux · Free
+  <strong>Extract clean, studio-grade vocals from any song — and the instrumental too. 100% offline on your Mac, Windows, or Linux. No upload, no account, no watermark.</strong>
 </p>
-
-<p align="center">
-    <a href="https://github.com/abd3lraouf-studios/vocaldrop/releases/latest"><strong>Download — macOS, Windows, Linux →</strong></a>
-</p>
-
-<p align="center">
-    <a href="https://abd3lraouf.dev/projects/vocaldrop/">abd3lraouf.dev/projects/vocaldrop/</a>
-</p>
-<!-- END abd3lraouf-studios:hero -->
 
 <p align="center">
   <a href="https://github.com/abd3lraouf-studios/vocaldrop/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/abd3lraouf-studios/vocaldrop?display_name=tag&label=download&color=b98cff" /></a>
@@ -170,17 +159,6 @@ Same underlying RoFormer models, but VocalDrop is a **native, polished desktop a
 ## 🤝 Feedback
 
 VocalDrop is free to use and closed source. This repo hosts the downloads, screenshots, and this README — so **bug reports and feature requests are very welcome** in the [Issues](https://github.com/abd3lraouf-studios/vocaldrop/issues).
-
-<!-- BEGIN abd3lraouf-studios:press -->
-## Press & marketing assets
-
-VocalDrop is a free AI vocal isolator and remover for macOS, Windows and Linux that runs entirely on your own hardware — no upload, no account, no watermark.
-
-**Naming.** Written "VocalDrop" — one word, capital V and D. Never "Vocal Drop" or "Vocaldrop".
-
-The press kit — icons, screen art, boilerplate, the fact sheet and a downloadable
-archive — is at **[abd3lraouf.dev/press/vocaldrop/](https://abd3lraouf.dev/press/vocaldrop/)**.
-<!-- END abd3lraouf-studios:press -->
 
 ## 📄 License & acknowledgements
 

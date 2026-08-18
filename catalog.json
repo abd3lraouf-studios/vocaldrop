@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "models": [
+    {
+      "filename": "model_bs_polarformer_float16.ckpt",
+      "name": "BS-PolarFormer (flagship)",
+      "role": "vocal",
+      "approxMB": 97,
+      "note": "One-pass · fastest (GPU)",
+      "keptTag": "vocals",
+      "tier": "fast",
+      "engine": "msst",
+      "modelType": "bs_roformer",
+      "configFile": "model_bs_polarformer_float16.yaml",
+      "configUrl": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.20/model_bs_polarformer_float16.yaml",
+      "ckptUrl": "https://github.com/ZFTurbo/Music-Source-Separation-Training/releases/download/v1.0.20/model_bs_polarformer_float16.ckpt"
+    },
+    {
+      "filename": "model_bs_roformer_ep_368_sdr_12.9628.ckpt",
+      "name": "BS-Roformer 1296 (viperx)",
+      "role": "vocal",
+      "approxMB": 609,
+      "note": "Highest fidelity · slower",
+      "keptTag": "vocals",
+      "tier": "max"
+    },
+    {
+      "filename": "denoise_mel_band_roformer_aufr33_sdr_27.9959.ckpt",
+      "name": "MelBand De-noise (aufr33)",
+      "role": "denoise",
+      "approxMB": 870,
+      "note": "Cleans residual hiss",
+      "keptTag": "dry"
+    },
+    {
+      "filename": "model_apollo_vocals_ep_54.ckpt",
+      "name": "Apollo Vocal Restorer",
+      "role": "enhance",
+      "approxMB": 194,
+      "note": "AI vocal restoration",
+      "keptTag": "vocals",
+      "engine": "msst",
+      "modelType": "apollo",
+      "configFile": "config_apollo_vocals_ep_54.yaml",
+      "configUrl": "https://huggingface.co/baicai1145/Apollo-vocal-msst/resolve/main/config_apollo_vocals_ep_54.yaml",
+      "ckptUrl": "https://huggingface.co/baicai1145/Apollo-vocal-msst/resolve/main/model_apollo_vocals_ep_54.ckpt"
+    },
+    {
+      "filename": "Kim_Vocal_2.onnx",
+      "name": "Kim Vocal 2 (MDX)",
+      "role": "vocal",
+      "approxMB": 66,
+      "note": "Optional MDX vocal model (DirectML/CPU EP)",
+      "keptTag": "vocals",
+      "needs": "onnx"
+    }
+  ]
+}

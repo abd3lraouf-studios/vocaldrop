@@ -49,7 +49,7 @@
 
 The voice is the point. The **instrumental** falls out of the same pass for free, so if a karaoke bed is what you're after it doubles as a **vocal remover** — but it is built to keep the vocal, not to throw it away.
 
-It is a real desktop app, not a web uploader: **your audio never leaves the machine**, there is no sign-up, no track limit, and nothing is watermarked. The first launch fetches the engine and models once (~2 GB); after that VocalDrop works with no connection at all.
+It is a real desktop app, not a web uploader: **your audio never leaves the machine**, there is no sign-up, no track limit, and nothing is watermarked. The Python engine ships inside the installer; the model for your quality tier downloads on first use (~100 MB Fast, ~600 MB Max — ~1 GB for the whole catalog); after that VocalDrop works with no connection at all.
 
 ## ✨ What it does
 
@@ -59,6 +59,16 @@ It is a real desktop app, not a web uploader: **your audio never leaves the mach
 **And the instrumental, free.** Every separation can write both sides. The acapella is what the app is for; the backing track comes out of the same run at no extra cost, so a karaoke bed is a side effect rather than a second job.
 
 **Clean it up.** Optional **de-noise** (a MelBand RoFormer pass) strips residual hiss and bleed, and optional **AI vocal restoration** (Apollo) repairs a vocal that came out of a lossy or damaged source.
+
+**How good is the separation?** The models, ranked by measured quality:
+
+| | Model | Size | Vocal quality | Speed |
+|---|---|---|---|---|
+| **Max** | BS-Roformer 1296 (viperx) | 609 MB | ★★★★★ — ~12.96 SDR, the community benchmark | slower (~10 min/song on CPU, seconds on GPU) |
+| **Fast** | BS-PolarFormer | 97 MB | ★★★★☆ — ~11.5 SDR, 80% of Max at 10× speed | seconds on GPU |
+| *(DML Fast)* | Kim Vocal 2 (MDX) | 66 MB | ★★★☆☆ — ~9.8 SDR, best ONNX model | seconds on AMD/Intel GPU |
+
+*(SDR = Signal-to-Distortion Ratio, from [MVSEP benchmarks](https://mvsep.com/quality_checker/leaderboard) — higher is better.)* Both tiers use the RoFormer architecture — the same family UVR5 ships — and are the highest-quality open-source separation models available today.
 
 **Chain the whole job.** Isolate → de-noise → enhance → remove silence → convert, applied per track, in a single run. Silence removal uses adaptive detection with click-free crossfade welding, which is what you want on podcasts, lectures and live takes.
 
@@ -73,25 +83,25 @@ It is a real desktop app, not a web uploader: **your audio never leaves the mach
 ## 📸 The app
 
 <p align="center">
-  <img src="docs/screenshots/01-workspace.png" width="900" alt="VocalDrop workspace: a queue of audio and video tracks on the left, the per-track signal chain — isolate vocals, de-noise, enhance, remove silence, convert — in the centre, and a feed of finished results on the right" />
+  <img src="docs/screenshots/01-workspace.png" width="900" alt="VocalDrop workspace: a queue of audio and video tracks on the left, the per-track signal chain — isolate vocals, remove silence, convert — in the centre, and a feed of finished results on the right" />
 </p>
 
 <p align="center"><em>One window, the whole workflow.</em> Queue up audio and video together, set the signal chain per track, and watch finished stems land in the Results feed — playable in place, or one click from your file manager.</p>
 
 <p align="center">
-  <img src="docs/screenshots/02-empty.png" width="900" alt="VocalDrop's empty state, showing the drop zone, the accepted formats, the link fetcher, and the five signal-chain stages" />
+  <img src="docs/screenshots/02-empty.png" width="900" alt="VocalDrop's empty state, showing the drop zone, the accepted formats, the link fetcher, and the three signal-chain stages" />
 </p>
 
 ## 📥 Install
 
-Grab the build for your system from the [**latest release**](https://github.com/abd3lraouf-studios/vocaldrop/releases/latest). First launch downloads the engine and models once (~2 GB) — everything after that is offline.
+Grab the build for your system from the [**latest release**](https://github.com/abd3lraouf-studios/vocaldrop/releases/latest). First use downloads your model once (~100 MB Fast, ~600 MB Max) — everything after that is offline.
 
 ### 🍎 macOS · Apple Silicon
 Download `VocalDrop-<version>-arm64.dmg`, open it, drag **VocalDrop** to **Applications**.
 **First launch:** the build is not notarized yet, so macOS will say it cannot be opened. **Right-click (⌃-click) the app → Open → Open anyway.** You only do this once.
 
 ### 🪟 Windows · x64
-Download `VocalDrop_<version>_x64-setup.exe` and run it.
+Download `VocalDrop Setup <version>.exe` and run it.
 **First launch:** SmartScreen may warn on an unsigned build — **More info → Run anyway**.
 
 ### 🐧 Linux · x64
@@ -99,39 +109,48 @@ Download `VocalDrop_<version>_amd64.AppImage`, then `chmod +x` it and run.
 
 > **Verify your download:** every asset ships a matching `.sha256`. Compare with `shasum -a 256` on macOS, or `sha256sum` on Windows and Linux.
 
-**Requirements.** macOS 11+ on Apple Silicon, Windows 10/11 x64, or Linux x64. **ffmpeg and the Python runtime are bundled** — there is nothing else to install, and no Python setup of your own. Budget ~2 GB of disk for the full model set; Fast mode alone needs about 100 MB.
+**Requirements.** macOS 11+ on Apple Silicon, Windows 10/11 x64, or Linux x64. **ffmpeg and the Python runtime are bundled** — there is nothing else to install, and no Python setup of your own. Budget ~1 GB of disk for the full model set (Fast alone is ~100 MB); an NVIDIA machine adds a one-time ~2.5 GB CUDA download when acceleration is enabled.
 
 ## 🧠 How it works
 
-VocalDrop runs the **RoFormer** family of separation models — the same architecture behind the best commercial stem tools — locally, through PyTorch.
+VocalDrop runs the **RoFormer** family of separation models — the same architecture behind the best commercial stem tools — locally, through PyTorch on NVIDIA (CUDA) and Apple Silicon (Metal). AMD/Intel GPUs and machines without a GPU run the **MDX** family on onnxruntime instead (DirectML on Windows AMD/Intel, the optimized CPU engine elsewhere) — the app detects which at launch.
 
-| Stage | Model | Size |
+| Track | Fast | Max |
 |---|---|---|
-| Isolate · Fast | BS-PolarFormer | ~97 MB |
-| Isolate · Max | BS-Roformer 1296 | ~609 MB |
-| De-noise | MelBand De-noise | ~870 MB |
-| Restore | Apollo | downloaded on demand |
+| NVIDIA · Apple Silicon | BS-PolarFormer (~97 MB) | BS-Roformer 1296 (~609 MB) |
+| AMD/Intel (Windows) · CPU | Kim Vocal 2 (~66 MB) | MDX Inst HQ 3 (~66 MB) |
 
-**On Apple Silicon it uses the GPU** through Metal (MPS), which is where the speed comes from. On Windows and Linux the bundled PyTorch is a CPU build, so separation runs on multiple CPU cores — the same output, more patience. Device selection is automatic (CUDA → Metal → CPU) and can be forced to CPU in Settings.
+Post-stages on every track: MelBand De-noise (~870 MB) and the Apollo vocal restorer (~194 MB), both optional, both on by default.
+
+**It uses your GPU wherever there is one.** Apple Silicon runs on Metal (MPS) out of the box. On Windows and Linux the app detects the GPU at launch: an NVIDIA card gets a one-time CUDA install (~2.5 GB, automatic), AMD/Intel GPUs run the MDX model family on DirectML, and everything else runs the optimized CPU engine. Device selection is automatic and can be forced to CPU in Settings.
 
 The app itself is a native shell — a Rust engine driving the system webview, with a self-contained Python runtime alongside it for the model inference. No browser engine is bundled, no local web server is opened, and no Electron.
 
 ## 🆚 vs. other tools
 
-Most "free" vocal extractors are websites that **upload your audio to someone else's server**.
+Most "free" vocal extractors are websites that **upload your audio to someone else's server**. Here is the honest, dimension-by-dimension picture:
 
-| | **VocalDrop** | Online tools | Ultimate Vocal Remover (UVR5) | Moises | iZotope RX |
-|---|:---:|:---:|:---:|:---:|:---:|
-| Runs locally, files stay yours | ✅ | ❌ uploads | ✅ | ❌ cloud | ✅ |
-| Free | ✅ | limited tier | ✅ | paid | paid |
-| Native desktop app | ✅ | browser only | ❌ Python GUI | ✅ | ✅ |
-| No watermark or quota | ✅ | ❌ | ✅ | ❌ | ✅ |
-| Apple Silicon GPU (Metal) | ✅ | n/a | manual setup | ✅ | ✅ |
-| One-click install | ✅ | n/a | ❌ dev setup | ✅ | ✅ |
-| No account | ✅ | ⚠️ often | ✅ | ⚠️ required | ✅ |
-| Fetch straight from a link | ✅ | ⚠️ some | ❌ | ⚠️ | ❌ |
+| | **VocalDrop** | [UVR5](https://github.com/Anjok07/ultimatevocalremovergui) | [LALAL.AI](https://lalal.ai) | [MVSEP](https://mvsep.com) | [Moises](https://moises.ai) | [iZotope RX](https://izotope.com/en/products/rx.html) |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| Runs locally, audio never uploaded | ✅ | ✅ | ❌ uploads | ❌ uploads | ❌ cloud | ✅ |
+| Free, unlimited | ✅ | ✅ | ❌ per-minute | ❌ queue-limited | ❌ subscription | ❌ $199+ |
+| SOTA separation (RoFormer) | ✅ | ✅ | partial | ✅ | partial | ❌ |
+| GPU-accelerated (all vendors) | ✅ Metal · CUDA · DirectML | ⚠️ CUDA only | n/a | n/a | n/a | ✅ |
+| Automatic GPU setup | ✅ one-time, in-app | ❌ manual | n/a | n/a | n/a | n/a |
+| Signal chain: isolate → denoise → restore → silence → convert | ✅ one pass | ❌ manual chaining | ❌ separation only | ❌ separation only | partial | manual |
+| AI vocal restoration (Apollo) | ✅ built-in | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Link ingestion (YouTube, 1000+ sites) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| Video in → synced video out | ✅ | ❌ | ❌ | ❌ | partial | ❌ |
+| Native desktop app (no browser) | ✅ | ⚠️ Python GUI | ❌ web | ❌ web | ✅ | ✅ |
+| One-click install | ✅ 315 MB | ⚠️ 1.6 GB | n/a | n/a | ✅ | ✅ |
+| No account | ✅ | ✅ | ⚠️ required | ⚠️ required | ❌ required | ✅ |
+| No watermark | ✅ | ✅ | ❌ free tier | ✅ | ❌ free tier | ✅ |
+| New models without app update | ✅ remote catalog | ❌ manual | ✅ server-side | ✅ server-side | ✅ server-side | ❌ |
+| Batch / queue processing | ✅ | ⚠️ file list | ❌ | ⚠️ | ❌ | ✅ |
 
-Looking for a **free UVR5 alternative**, a **private Moises alternative**, or an **offline acapella extractor that doesn't upload**? That is what this is. It uses the same RoFormer model family as UVR5, packaged as a desktop app with no Python setup.
+**The short version:** VocalDrop is the only tool that is simultaneously **free**, **local** (your audio never leaves the machine), **GPU-accelerated on every vendor** (Metal on Apple Silicon, CUDA on NVIDIA, DirectML on AMD/Intel — configured automatically), and a **full signal chain** rather than just a separator. UVR5 is the closest open-source alternative but requires Python setup, manual GPU configuration, is CUDA-only, and has no link ingestion or video support. Online tools upload your audio. Paid tools cost money.
+
+Looking for a **free UVR5 alternative**, a **private Moises alternative**, or an **offline acapella extractor that doesn't upload**? That is what this is.
 
 ## 🔒 Privacy
 
@@ -148,7 +167,7 @@ Both — they are the same operation. Every run separates the track into a vocal
 No. The first launch downloads the models; after that you can pull the network cable and everything still works.
 
 **Does it use my GPU?**
-On Apple Silicon, yes — Metal, automatically. On Windows and Linux the bundled PyTorch is CPU-only, so it uses your cores instead. CUDA support is on the roadmap.
+Yes. Metal on Apple Silicon, automatically. On Windows and Linux the app detects your GPU on launch — NVIDIA gets a one-time CUDA download, AMD/Intel run the MDX models on DirectML, and machines without a GPU run the optimized CPU engine.
 
 **Is it really free?**
 Yes. No ads, no watermark, no subscription, no paywalled features, no account. VocalDrop is closed source and simply given away.
@@ -165,7 +184,6 @@ macOS 11+ on Apple Silicon, Windows 10/11 x64, Linux x64. There is no Intel-Mac 
 ## 🛣️ Roadmap
 
 - [ ] Code-signing and notarization, so there is no Gatekeeper or SmartScreen warning
-- [ ] CUDA acceleration on Windows and Linux
 - [ ] In-app auto-update
 - [ ] Preview a separation before committing to a full render
 - [ ] More stem targets — drums, bass, piano

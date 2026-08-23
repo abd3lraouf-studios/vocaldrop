@@ -142,7 +142,7 @@ Most "free" vocal extractors are websites that **upload your audio to someone el
 | Link ingestion (YouTube, 1000+ sites) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Video in → synced video out | ✅ | ❌ | ❌ | ❌ | partial | ❌ |
 | Native desktop app (no browser) | ✅ | ⚠️ Python GUI | ❌ web | ❌ web | ✅ | ✅ |
-| One-click install | ✅ 315 MB | ⚠️ 1.6 GB | n/a | n/a | ✅ | ✅ |
+| One-click install | ✅ 246 MB | ⚠️ 1.6 GB | n/a | n/a | ✅ | ✅ |
 | No account | ✅ | ✅ | ⚠️ required | ⚠️ required | ❌ required | ✅ |
 | No watermark | ✅ | ✅ | ❌ free tier | ✅ | ❌ free tier | ✅ |
 | New models without app update | ✅ remote catalog | ❌ manual | ✅ server-side | ✅ server-side | ✅ server-side | ❌ |

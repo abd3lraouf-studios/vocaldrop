@@ -12,7 +12,7 @@
 <h1 align="center">VocalDrop — Free AI Vocal Isolator & Extractor</h1>
 
 <p align="center">
-    <strong>Lifts a studio-clean vocal out of any song, on your own CPU or GPU. The acapella you wanted, and your audio never leaves the machine.</strong><br>
+    <strong>A free AI vocal remover that lifts a studio-clean acapella out of any song, on your own CPU or GPU — your audio never leaves the machine.</strong><br>
     macOS (Apple Silicon) · Windows · Linux · Free
 </p>
 

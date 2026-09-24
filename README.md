@@ -111,6 +111,19 @@ Download `VocalDrop_<version>_amd64.AppImage`, then `chmod +x` it and run.
 
 **Requirements.** macOS 11+ on Apple Silicon, Windows 10/11 x64, or Linux x64. **ffmpeg and the Python runtime are bundled** — there is nothing else to install, and no Python setup of your own. Budget ~1 GB of disk for the full model set (Fast alone is ~100 MB); an NVIDIA machine adds a one-time ~2.5 GB CUDA download when acceleration is enabled.
 
+### ⌨️ Command line
+
+Everything the app does also works from a terminal, using the same engine and
+the same Settings:
+
+```bash
+vocaldrop vocals --quality max interview.mp4    # music removed, video untouched
+vocaldrop run --vocals --silence --convert mp3 *.wav
+```
+
+Set it up once with **`install-cli`**. On Windows, tick *Add the vocaldrop
+command-line tool* in the installer.
+
 ## 🧠 How it works
 
 VocalDrop runs the **RoFormer** family of separation models — the same architecture behind the best commercial stem tools — locally, through PyTorch on NVIDIA (CUDA) and Apple Silicon (Metal). AMD/Intel GPUs and machines without a GPU run the **MDX** family on onnxruntime instead (DirectML on Windows AMD/Intel, the optimized CPU engine elsewhere) — the app detects which at launch.

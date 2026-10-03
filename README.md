@@ -171,6 +171,8 @@ Looking for a **free UVR5 alternative**, a **private Moises alternative**, or an
 
 The app talks to the network in exactly four situations: the one-time engine and model download, fetching a link you paste, the update check (switch it off in Settings), and anonymous diagnostics. Diagnostics are crash reports and coarse usage counts — never file contents, never file paths, never anything you typed. They can be turned off in Settings, and the in-app bug reporter always shows you the exact payload before you send it, with per-attachment toggles.
 
+**Contact.** VocalDrop is made by abd3lraouf, LLC. For questions about privacy or your data, email [support@abd3lraouf.dev](mailto:support@abd3lraouf.dev) or call [+1 (917) 920-5169](tel:+19179205169).
+
 ## ❓ FAQ
 
 **Does it extract vocals, or remove them?**

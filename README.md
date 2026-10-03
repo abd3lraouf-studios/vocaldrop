@@ -160,7 +160,7 @@ Most "free" vocal extractors are websites that **upload your audio to someone el
 | New models without app update | ✅ remote catalog | ❌ manual | ✅ server-side | ✅ server-side | ✅ server-side | ❌ |
 | Batch / queue processing | ✅ | ⚠️ file list | ❌ | ⚠️ | ❌ | ✅ |
 
-**The short version:** VocalDrop is the only tool that is simultaneously **free**, **local** (your audio never leaves the machine), **GPU-accelerated on every vendor** (Metal on Apple Silicon, CUDA on NVIDIA, DirectML on AMD/Intel — configured automatically), and a **full signal chain** rather than just a separator. UVR5 is the closest open-source alternative but requires Python setup, manual GPU configuration, is CUDA-only, and has no link ingestion or video support. Online tools upload your audio. Paid tools cost money.
+**The short version:** VocalDrop is the only tool that is simultaneously **free**, **local** (your audio never leaves the machine), **GPU-accelerated on every vendor** (Metal on Apple Silicon, CUDA on NVIDIA, DirectML on AMD/Intel — configured automatically), and a **full signal chain** rather than just a separator. UVR5 is the closest open-source alternative: it ships a separate build per GPU vendor that you choose yourself, a larger install, and no link ingestion or video support. Online tools upload your audio. Paid tools cost money.
 
 Looking for a **free UVR5 alternative**, a **private Moises alternative**, or an **offline acapella extractor that doesn't upload**? That is what this is.
 

@@ -12,12 +12,12 @@
 <h1 align="center">VocalDrop — Free AI Vocal Isolator & Extractor</h1>
 
 <p align="center">
-    <strong>Lifts a studio-clean vocal out of any song, on your own CPU or GPU. The acapella you wanted, and your audio never leaves the machine.</strong><br>
-    macOS (Apple Silicon) · Windows · Linux · Free
+    <strong>A free AI vocal remover that lifts a studio-clean acapella out of any song, on your own CPU or GPU — your audio never leaves the machine.</strong><br>
+    macOS (Apple Silicon) · Windows · Free
 </p>
 
 <p align="center">
-    <a href="https://github.com/abd3lraouf-studios/vocaldrop/releases/latest"><strong>Download — macOS, Windows, Linux →</strong></a>
+    <a href="https://github.com/abd3lraouf-studios/vocaldrop/releases/latest"><strong>Download — macOS, Windows →</strong></a>
 </p>
 
 <p align="center">
@@ -28,7 +28,7 @@
 <p align="center">
   <a href="https://github.com/abd3lraouf-studios/vocaldrop/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/abd3lraouf-studios/vocaldrop?display_name=tag&label=download&color=3d9bff" /></a>
   <a href="https://github.com/abd3lraouf-studios/vocaldrop/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/abd3lraouf-studios/vocaldrop/total?label=downloads&color=blue" /></a>
-  <a href="#-install"><img alt="Platform" src="https://img.shields.io/badge/platform-macOS%20%C2%B7%20Windows%20%C2%B7%20Linux-000000" /></a>
+  <a href="#-install"><img alt="Platform" src="https://img.shields.io/badge/platform-macOS%20%C2%B7%20Windows-000000" /></a>
   <a href="#-install"><img alt="Price" src="https://img.shields.io/badge/price-free-success" /></a>
   <a href="#-privacy"><img alt="Privacy" src="https://img.shields.io/badge/privacy-runs%20offline-blueviolet" /></a>
   <a href="https://github.com/abd3lraouf-studios/vocaldrop/stargazers"><img alt="Stars" src="https://img.shields.io/github/stars/abd3lraouf-studios/vocaldrop?style=social" /></a>
@@ -64,11 +64,11 @@ It is a real desktop app, not a web uploader: **your audio never leaves the mach
 
 | | Model | Size | Vocal quality | Speed |
 |---|---|---|---|---|
-| **Max** | BS-Roformer 1296 (viperx) | 609 MB | ★★★★★ — ~12.96 SDR, the community benchmark | slower (~10 min/song on CPU, seconds on GPU) |
-| **Fast** | BS-PolarFormer | 97 MB | ★★★★☆ — ~11.5 SDR, 80% of Max at 10× speed | seconds on GPU |
-| *(DML Fast)* | Kim Vocal 2 (MDX) | 66 MB | ★★★☆☆ — ~9.8 SDR, best ONNX model | seconds on AMD/Intel GPU |
+| **Max** | BS-Roformer 1296 (viperx) | 609 MB | ★★★★★ — 12.10 SDR, median of 40 tracks | slower (~10 min/song on CPU, seconds on GPU) |
+| **Fast** | BS-PolarFormer | 97 MB | ★★★★☆ — 11.00 SDR on the MVSEP Multisong set | seconds on GPU |
+| *(DML Fast)* | Kim Vocal 2 (MDX) | 66 MB | ★★★☆☆ — 10.18 SDR, median of 40 tracks | seconds on AMD/Intel GPU |
 
-*(SDR = Signal-to-Distortion Ratio, from [MVSEP benchmarks](https://mvsep.com/quality_checker/leaderboard) — higher is better.)* Both tiers use the RoFormer architecture — the same family UVR5 ships — and are the highest-quality open-source separation models available today.
+*(SDR = Signal-to-Distortion Ratio, vocals stem, higher is better. Max and Kim Vocal 2: median over 40 tracks from [python-audio-separator's model scores](https://github.com/nomadkaraoke/python-audio-separator/blob/main/audio_separator/models-scores.json). Fast: the shipped checkpoint's score on the [MVSEP Multisong set](https://mvsep.com/quality_checker/multisong_leaderboard), from [ZFTurbo's model table](https://github.com/ZFTurbo/Music-Source-Separation-Training/blob/main/docs/pretrained_models.md). Different test sets, so compare within a row's source.)* Both tiers use the RoFormer architecture — the same family UVR5 ships — and are the highest-quality open-source separation models available today.
 
 **Chain the whole job.** Isolate → de-noise → enhance → remove silence → convert, applied per track, in a single run. Silence removal uses adaptive detection with click-free crossfade welding, which is what you want on podcasts, lectures and live takes.
 
@@ -104,12 +104,11 @@ Download `VocalDrop-<version>-arm64.dmg`, open it, drag **VocalDrop** to **Appli
 Download `VocalDrop Setup <version>.exe` and run it.
 **First launch:** SmartScreen may warn on an unsigned build — **More info → Run anyway**.
 
-### 🐧 Linux · x64
-Download `VocalDrop_<version>_amd64.AppImage`, then `chmod +x` it and run.
+> **Linux:** no Linux build ships with the current releases. The last one is in [v1.3.0](https://github.com/abd3lraouf-studios/vocaldrop/releases/tag/v1.3.0).
 
-> **Verify your download:** every asset ships a matching `.sha256`. Compare with `shasum -a 256` on macOS, or `sha256sum` on Windows and Linux.
+> **Verify your download:** every asset ships a matching `.sha256`. Compare with `shasum -a 256` on macOS, or `certutil -hashfile <file> SHA256` on Windows.
 
-**Requirements.** macOS 11+ on Apple Silicon, Windows 10/11 x64, or Linux x64. **ffmpeg and the Python runtime are bundled** — there is nothing else to install, and no Python setup of your own. Budget ~1 GB of disk for the full model set (Fast alone is ~100 MB); an NVIDIA machine adds a one-time ~2.5 GB CUDA download when acceleration is enabled.
+**Requirements.** macOS 11+ on Apple Silicon or Windows 10/11 x64. **ffmpeg and the Python runtime are bundled** — there is nothing else to install, and no Python setup of your own. Budget ~1 GB of disk for the full model set (Fast alone is ~100 MB); an NVIDIA machine adds a one-time ~2.5 GB CUDA download when acceleration is enabled.
 
 ### ⌨️ Command line
 
@@ -135,7 +134,7 @@ VocalDrop runs the **RoFormer** family of separation models — the same archite
 
 Post-stages on every track: MelBand De-noise (~870 MB) and the Apollo vocal restorer (~194 MB), both optional, both on by default.
 
-**It uses your GPU wherever there is one.** Apple Silicon runs on Metal (MPS) out of the box. On Windows and Linux the app detects the GPU at launch: an NVIDIA card gets a one-time CUDA install (~2.5 GB, automatic), AMD/Intel GPUs run the MDX model family on DirectML, and everything else runs the optimized CPU engine. Device selection is automatic and can be forced to CPU in Settings.
+**It uses your GPU wherever there is one.** Apple Silicon runs on Metal (MPS) out of the box. On Windows the app detects the GPU at launch: an NVIDIA card gets a one-time CUDA install (~2.5 GB, automatic), AMD/Intel GPUs run the MDX model family on DirectML, and everything else runs the optimized CPU engine. Device selection is automatic and can be forced to CPU in Settings.
 
 The app itself is a native shell — a Rust engine driving the system webview, with a self-contained Python runtime alongside it for the model inference. No browser engine is bundled, no local web server is opened, and no Electron.
 
@@ -148,14 +147,14 @@ Most "free" vocal extractors are websites that **upload your audio to someone el
 | Runs locally, audio never uploaded | ✅ | ✅ | ❌ uploads | ❌ uploads | ❌ cloud | ✅ |
 | Free, unlimited | ✅ | ✅ | ❌ per-minute | ❌ queue-limited | ❌ subscription | ❌ $199+ |
 | SOTA separation (RoFormer) | ✅ | ✅ | partial | ✅ | partial | ❌ |
-| GPU-accelerated (all vendors) | ✅ Metal · CUDA · DirectML | ⚠️ CUDA only | n/a | n/a | n/a | ✅ |
+| GPU-accelerated (all vendors) | ✅ Metal · CUDA · DirectML | ✅ separate build per vendor | n/a | n/a | n/a | ✅ |
 | Automatic GPU setup | ✅ one-time, in-app | ❌ manual | n/a | n/a | n/a | n/a |
 | Signal chain: isolate → denoise → restore → silence → convert | ✅ one pass | ❌ manual chaining | ❌ separation only | ❌ separation only | partial | manual |
 | AI vocal restoration (Apollo) | ✅ built-in | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Link ingestion (YouTube, 1000+ sites) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | Video in → synced video out | ✅ | ❌ | ❌ | ❌ | partial | ❌ |
 | Native desktop app (no browser) | ✅ | ⚠️ Python GUI | ❌ web | ❌ web | ✅ | ✅ |
-| One-click install | ✅ 246 MB | ⚠️ 1.6 GB | n/a | n/a | ✅ | ✅ |
+| One-click install | ✅ ~245 MB | ⚠️ 1.6 GB | n/a | n/a | ✅ | ✅ |
 | No account | ✅ | ✅ | ⚠️ required | ⚠️ required | ❌ required | ✅ |
 | No watermark | ✅ | ✅ | ❌ free tier | ✅ | ❌ free tier | ✅ |
 | New models without app update | ✅ remote catalog | ❌ manual | ✅ server-side | ✅ server-side | ✅ server-side | ❌ |
@@ -182,7 +181,7 @@ Both — they are the same operation. Every run separates the track into a vocal
 No. The first launch downloads the models; after that you can pull the network cable and everything still works.
 
 **Does it use my GPU?**
-Yes. Metal on Apple Silicon, automatically. On Windows and Linux the app detects your GPU on launch — NVIDIA gets a one-time CUDA download, AMD/Intel run the MDX models on DirectML, and machines without a GPU run the optimized CPU engine.
+Yes. Metal on Apple Silicon, automatically. On Windows the app detects your GPU on launch — NVIDIA gets a one-time CUDA download, AMD/Intel run the MDX models on DirectML, and machines without a GPU run the optimized CPU engine.
 
 **Is it really free?**
 Yes. No ads, no watermark, no subscription, no paywalled features, no account. VocalDrop is closed source and simply given away.
@@ -194,7 +193,7 @@ The builds are not yet code-signed or notarized. macOS: right-click → Open. Wi
 Same underlying models, very different package: drag-and-drop, link fetching, video support, format conversion, silence removal and crash recovery in one native app, with no Python environment to manage.
 
 **Which platforms?**
-macOS 11+ on Apple Silicon, Windows 10/11 x64, Linux x64. There is no Intel-Mac build.
+macOS 11+ on Apple Silicon and Windows 10/11 x64. There is no Intel-Mac build, and no Linux build in the current releases.
 
 ## 🛣️ Roadmap
 
@@ -210,7 +209,7 @@ Bug reports and feature requests are very welcome in the [Issues](https://github
 <!-- BEGIN abd3lraouf-studios:press -->
 ## Press & marketing assets
 
-VocalDrop is a free AI vocal isolator for macOS, Windows and Linux that lifts a studio-clean acapella out of any track, entirely on your own hardware — no upload, no account, no watermark.
+VocalDrop is a free AI vocal isolator for macOS and Windows that lifts a studio-clean acapella out of any track, entirely on your own hardware — no upload, no account, no watermark.
 
 **Naming.** Written "VocalDrop" — one word, capital V and D. Never "Vocal Drop" or "Vocaldrop".
 

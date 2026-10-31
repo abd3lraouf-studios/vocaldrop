@@ -49,28 +49,30 @@
 
 The voice is the point. The **instrumental** falls out of the same pass for free, so if a karaoke bed is what you're after it doubles as a **vocal remover** — but it is built to keep the vocal, not to throw it away.
 
-It is a real desktop app, not a web uploader: **your audio never leaves the machine**, there is no sign-up, no track limit, and nothing is watermarked. The Python engine ships inside the installer; the model for your quality tier downloads on first use (~100 MB Fast, ~600 MB Max — ~1 GB for the whole catalog); after that VocalDrop works with no connection at all.
+It is a real desktop app, not a web uploader: **your audio never leaves the machine**, there is no sign-up, no track limit, and nothing is watermarked. The Python engine ships inside the installer; the model for your quality tier downloads on first use (~100 MB Fast, ~200 MB Max — ~1.4 GB for the whole catalog); after that VocalDrop works with no connection at all.
 
 ## ✨ What it does
 
 **Isolate vocals — two modes, one model each.**
-**Fast** runs BS-PolarFormer, a compact GPU-friendly model that turns a track around in seconds on Apple Silicon. **Max** runs BS-Roformer 1296 for the highest fidelity when you care more about the result than the clock. There is no ensemble and no blending: one model per mode, so what you hear is what that model produced.
+**Max** runs anvuew's BS-Roformer ft1, the best model we measured — and on Apple Silicon and the CPU it is also the quicker of the two. **Fast** runs BS-PolarFormer, half the download, for when disk or bandwidth matters more. There is no ensemble and no blending: one model per mode, so what you hear is what that model produced.
 
 **And the instrumental, free.** Every separation can write both sides. The acapella is what the app is for; the backing track comes out of the same run at no extra cost, so a karaoke bed is a side effect rather than a second job.
 
-**Clean it up.** Optional **de-noise** (a MelBand RoFormer pass) strips residual hiss and bleed, and optional **AI vocal restoration** (Apollo) repairs a vocal that came out of a lossy or damaged source.
+**Clean it up.** Optional **de-reverb** strips room reverb and echo so the vocal comes out dry, **de-noise** (a MelBand RoFormer pass) strips residual hiss and bleed, and **AI vocal restoration** (Apollo) repairs a vocal that came out of a lossy or damaged source.
 
-**How good is the separation?** The models, ranked by measured quality:
+**Lead and backing, apart.** Switch on *Split lead & backing* and every vocal also comes out as two files: the lead singer on their own, and the harmonies and backing vocals behind them.
 
-| | Model | Size | Vocal quality | Speed |
+**How good is the separation?** Measured on 12 MUSDB18-HQ test tracks on an M4 Max, through the app's own engine:
+
+| | Model | Download | Median vocal SDR | Time for a 4-minute song (Apple GPU · CPU) |
 |---|---|---|---|---|
-| **Max** | BS-Roformer 1296 (viperx) | 609 MB | ★★★★★ — ~12.96 SDR, the community benchmark | slower (~10 min/song on CPU, seconds on GPU) |
-| **Fast** | BS-PolarFormer | 97 MB | ★★★★☆ — ~11.5 SDR, 80% of Max at 10× speed | seconds on GPU |
-| *(DML Fast)* | Kim Vocal 2 (MDX) | 66 MB | ★★★☆☆ — ~9.8 SDR, best ONNX model | seconds on AMD/Intel GPU |
+| **Max** | BS-Roformer ft1 (anvuew) | 195 MB | **11.80 dB** | ~1¼ min · ~2¼ min |
+| **Fast** | BS-PolarFormer | 97 MB | 10.91 dB | ~1¾ min · ~3¾ min |
+| *(Fast on AMD/Intel)* | Kim Vocal 2 (MDX) | 66 MB | not benchmarked | runs on the GPU via DirectML |
 
-*(SDR = Signal-to-Distortion Ratio, from [MVSEP benchmarks](https://mvsep.com/quality_checker/leaderboard) — higher is better.)* Both tiers use the RoFormer architecture — the same family UVR5 ships — and are the highest-quality open-source separation models available today.
+*(SDR = Signal-to-Distortion Ratio — higher is better.)* Max replaced BS-Roformer 1296 in 1.6.4: on the same tracks 1296 scored 10.48 dB the way 1.6.3 ran it — below even Fast — and 11.30 dB at best. Both tiers are RoFormer models — the architecture behind today's best stem separators.
 
-**Chain the whole job.** Isolate → de-noise → enhance → remove silence → convert, applied per track, in a single run. Silence removal uses adaptive detection with click-free crossfade welding, which is what you want on podcasts, lectures and live takes.
+**Chain the whole job.** Isolate → de-reverb → de-noise → enhance → remove silence → convert, applied per track, in a single run. Silence removal uses adaptive detection with click-free crossfade welding, which is what you want on podcasts, lectures and live takes.
 
 **Bring in audio from anywhere.** Drop files, drop a folder, or paste a **link** — VocalDrop fetches from YouTube, SoundCloud, Vimeo, TikTok and a thousand-odd other sites, showing the real title, thumbnail, size, speed and ETA while it downloads. You can also hand it a link from outside the app via a `vocaldrop://` URL.
 
@@ -94,7 +96,7 @@ It is a real desktop app, not a web uploader: **your audio never leaves the mach
 
 ## 📥 Install
 
-Grab the build for your system from the [**latest release**](https://github.com/abd3lraouf-studios/vocaldrop/releases/latest). First use downloads your model once (~100 MB Fast, ~600 MB Max) — everything after that is offline.
+Grab the build for your system from the [**latest release**](https://github.com/abd3lraouf-studios/vocaldrop/releases/latest). First use downloads your model once (~100 MB Fast, ~200 MB Max) — everything after that is offline.
 
 ### 🍎 macOS · Apple Silicon
 Download `VocalDrop-<version>-arm64.dmg`, open it, drag **VocalDrop** to **Applications**.
@@ -119,6 +121,7 @@ the same Settings:
 ```bash
 vocaldrop vocals --quality max interview.mp4    # music removed, video untouched
 vocaldrop run --vocals --silence --convert mp3 *.wav
+vocaldrop run --vocals --dereverb --split song.flac  # dry vocal + lead + backing
 ```
 
 Set it up once with **`install-cli`**. On Windows, tick *Add the vocaldrop
@@ -126,16 +129,16 @@ command-line tool* in the installer.
 
 ## 🧠 How it works
 
-VocalDrop runs the **RoFormer** family of separation models — the same architecture behind the best commercial stem tools — locally, through PyTorch on NVIDIA (CUDA) and Apple Silicon (Metal). AMD/Intel GPUs and machines without a GPU run the **MDX** family on onnxruntime instead (DirectML on Windows AMD/Intel, the optimized CPU engine elsewhere) — the app detects which at launch.
+VocalDrop runs the **RoFormer** family of separation models — the same architecture behind the best commercial stem tools — locally, through PyTorch on NVIDIA (CUDA) and Apple Silicon (Metal). On Windows AMD/Intel GPUs the Fast tier runs an **MDX** model on DirectML instead, since DirectML cannot run RoFormer; Max there, and everything on a machine with no supported GPU, runs RoFormer on the CPU — the app detects which at launch.
 
 | Track | Fast | Max |
 |---|---|---|
-| NVIDIA · Apple Silicon | BS-PolarFormer (~97 MB) | BS-Roformer 1296 (~609 MB) |
-| AMD/Intel (Windows) · CPU | Kim Vocal 2 (~66 MB) | MDX Inst HQ 3 (~66 MB) |
+| NVIDIA · Apple Silicon · CPU | BS-PolarFormer (~97 MB) | BS-Roformer ft1 (~195 MB) |
+| AMD/Intel (Windows) | Kim Vocal 2 (~66 MB, GPU) | BS-Roformer ft1 (~195 MB, CPU) |
 
-Post-stages on every track: MelBand De-noise (~870 MB) and the Apollo vocal restorer (~194 MB), both optional, both on by default.
+Post-stages on every track: MelBand De-noise (~870 MB) and the Apollo vocal restorer (~194 MB), both optional and on by default; De-reverb (~871 MB) and the lead/backing splitter (~195 MB) are off until you switch them on, and download then.
 
-**It uses your GPU wherever there is one.** Apple Silicon runs on Metal (MPS) out of the box. On Windows and Linux the app detects the GPU at launch: an NVIDIA card gets a one-time CUDA install (~2.5 GB, automatic), AMD/Intel GPUs run the MDX model family on DirectML, and everything else runs the optimized CPU engine. Device selection is automatic and can be forced to CPU in Settings.
+**It uses your GPU wherever there is one.** Apple Silicon runs on Metal (MPS) out of the box. On Windows and Linux the app detects the GPU at launch: an NVIDIA card gets a one-time CUDA install (~2.5 GB, automatic), AMD/Intel GPUs on Windows run the Fast tier on DirectML (Max runs on the CPU there), and everything else runs on the CPU. Device selection is automatic and can be forced to CPU in Settings.
 
 The app itself is a native shell — a Rust engine driving the system webview, with a self-contained Python runtime alongside it for the model inference. No browser engine is bundled, no local web server is opened, and no Electron.
 
@@ -182,7 +185,7 @@ Both — they are the same operation. Every run separates the track into a vocal
 No. The first launch downloads the models; after that you can pull the network cable and everything still works.
 
 **Does it use my GPU?**
-Yes. Metal on Apple Silicon, automatically. On Windows and Linux the app detects your GPU on launch — NVIDIA gets a one-time CUDA download, AMD/Intel run the MDX models on DirectML, and machines without a GPU run the optimized CPU engine.
+Yes. Metal on Apple Silicon, automatically. On Windows and Linux the app detects your GPU on launch — NVIDIA gets a one-time CUDA download, AMD/Intel on Windows run the Fast tier on DirectML (Max on the CPU), and machines without a supported GPU run on the CPU.
 
 **Is it really free?**
 Yes. No ads, no watermark, no subscription, no paywalled features, no account. VocalDrop is closed source and simply given away.
